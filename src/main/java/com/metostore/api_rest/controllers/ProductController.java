@@ -37,7 +37,7 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<DadosListagemProducts>> listarProdutos(@PageableDefault(size = 12, sort = {"name"}) Pageable paginacao) {
+    public ResponseEntity<Page<DadosListagemProducts>> listarProdutos(@PageableDefault(size = 20, sort = {"name"}) Pageable paginacao) {
         return productService.listarProdutos(paginacao);
     }
 
