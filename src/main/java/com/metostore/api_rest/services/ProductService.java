@@ -14,6 +14,9 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+
 
 @Service
 public class ProductService {
@@ -72,7 +75,8 @@ public class ProductService {
             Double minPrice,
             Double maxPrice,
             Integer minRate,
-            Integer maxRate
+            Integer maxRate,
+            String order
     ) {
         Specification<Product> specification = (root, queryCr, cb) -> cb.conjunction();
 
@@ -100,7 +104,39 @@ public class ProductService {
           specification = specification.and(ProductSpecification.rateLessThanOrEqual(maxRate));
         }
 
-        var product = productRepository.findAll(specification.and(ProductSpecification.activeTrue()), paginacao)
+        Pageable sortedPageable = paginacao;
+
+        specification = specification.and(ProductSpecification.activeTrue());
+
+        if (order != null) {
+            switch (order.toLowerCase()) {
+                case "price_asc":
+                    sortedPageable = PageRequest.of(
+                            paginacao.getPageNumber(),
+                            paginacao.getPageSize(),
+                            Sort.by("price").ascending()
+                    );
+                    break;
+                case "price_desc":
+                    sortedPageable = PageRequest.of(
+                            paginacao.getPageNumber(),
+                            paginacao.getPageSize(),
+                            Sort.by("price").descending()
+                    );
+                    break;
+                case "best_rated":
+                    sortedPageable = PageRequest.of(
+                            paginacao.getPageNumber(),
+                            paginacao.getPageSize(),
+                            Sort.by("rate").descending()
+                    );
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        var product = productRepository.findAll(specification, sortedPageable)
                 .map(DadosListagemProducts::new);
 
         return ResponseEntity.ok(product);

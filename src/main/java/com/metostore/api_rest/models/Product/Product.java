@@ -1,12 +1,17 @@
 package com.metostore.api_rest.models.Product;
 
 import com.metostore.api_rest.models.Product.dto.DadosAtualizacaoProduct;
+import com.metostore.api_rest.models.Product.dto.DadosAtualizacaoProductImages;
 import com.metostore.api_rest.models.Product.dto.DadosCadastroProduct;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Table(name = "products")
 @Entity(name = "Product")
@@ -46,6 +51,9 @@ public class Product {
 
     private Boolean active = true;
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductImages> images = new ArrayList<>();
+
     public Product(DadosCadastroProduct json) {
         this.name = json.name();
         this.description = json.description();
@@ -56,6 +64,12 @@ public class Product {
         this.category = json.category();
         this.available = json.available();
         this.quantity = json.quantity();
+
+        if(json.images() != null) {
+            this.images = json.images().stream()
+                    .map(ProductImages::new)
+                    .collect(Collectors.toList());
+        }
     }
 
     public void atualizarProduto(DadosAtualizacaoProduct json) {
@@ -91,13 +105,36 @@ public class Product {
             this.quantity = json.quantity();
         }
 
-        if(json.active() == false || json.active() == true) {
+        if (json.active() != null) {
             this.active = json.active();
         }
 
-        if(!(json.quantity() > 0)) {
-            this.available = false;
+        if(json.quantity() >= 1) {
+            this.quantity = json.quantity();
+
+            if (json.quantity() > 0) {
+                this.available = true;
+            } else {
+                this.available = false;
+            }
         }
+
+        if (json.images() != null) {
+            this.images.clear();
+
+
+
+            var newImages = json.images().stream()
+                    .map(imgDto -> {
+                        ProductImages img = new ProductImages(imgDto);
+                        img.setProduct(this);
+                        return img;
+                    })
+                    .toList();
+
+            this.images.addAll(newImages);
+        }
+
     }
 
     public void inativarProduto() {

@@ -66,9 +66,10 @@ public class ProductController {
             @RequestParam(required = false) Double minPrice,
             @RequestParam(required = false) Double maxPrice,
             @RequestParam(required = false) Integer minRate,
-            @RequestParam(required = false) Integer maxRate
+            @RequestParam(required = false) Integer maxRate,
+            @RequestParam(required = false) String order
             ) {
 
-        return productService.listarProdutosPorBusca(paginacao, query, category, minPrice, maxPrice, minRate, maxRate);
+        return productService.listarProdutosPorBusca(paginacao, query, category, minPrice, maxPrice, minRate, maxRate, order);
     }
 }
