@@ -14,7 +14,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") // todos os endpoints
-                        .allowedOrigins("http://localhost:3000", "http://localhost:4200") // portas permitidas
+                        .allowedOrigins("http://localhost:3000")    // React consegue acessar
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
