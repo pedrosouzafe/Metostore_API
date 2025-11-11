@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Entity
-@Table(name = "product-images")
+@Table(name = "product_images")
 @Getter
 @Setter
 @NoArgsConstructor

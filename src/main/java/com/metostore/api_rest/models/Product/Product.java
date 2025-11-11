@@ -67,7 +67,11 @@ public class Product {
 
         if(json.images() != null) {
             this.images = json.images().stream()
-                    .map(ProductImages::new)
+                    .map(imgDto -> {
+                        ProductImages image = new ProductImages(imgDto);
+                        image.setProduct(this);
+                        return image;
+                    })
                     .collect(Collectors.toList());
         }
     }
