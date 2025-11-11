@@ -14,7 +14,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") // todos os endpoints
-                        .allowedOrigins("http://localhost:3000")    // React consegue acessar
+                        .allowedOrigins("http://localhost:3000", "https://metostore.up.railway.app")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
