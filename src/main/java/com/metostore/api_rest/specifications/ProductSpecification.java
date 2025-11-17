@@ -12,12 +12,16 @@ public class ProductSpecification {
                 cb.like(cb.lower(root.get("description")), "%" + keyword.toLowerCase() + "%")
         );
 
+        /*
+            WHERE (name LIKE '%keyword%' OR description LIKE '%keyword')
+        */
+
         // Funciona como um where no sql, onde ele irá pesquisar '%{keyword}%' no banco tanto para a coluna 'name' quanto 'description'
     }
 
     // Filtra pela categoria
     public static Specification<Product> categoryEquals(String category) {
-        return (root, query, cb) -> cb.equal(root.get("category"), category.toUpperCase());
+        return (root, query, cb) -> cb.equal(root.get("category"), category.toUpperCase());-
     }
 
     // Filtra pelo preço (maior ou igual a)
