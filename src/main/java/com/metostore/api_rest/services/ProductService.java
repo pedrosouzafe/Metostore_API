@@ -78,9 +78,11 @@ public class ProductService {
             Integer maxRate,
             String order
     ) {
+        // Começa sem filtro
         Specification<Product> specification = (root, queryCr, cb) -> cb.conjunction();
 
         if(query != null && !query.isBlank()) {
+            // '.and' adiciona os filtros caso os parâmetros não estejam vazios
             specification = specification.and(ProductSpecification.nameOrDescriptionContains(query));
         }
 
