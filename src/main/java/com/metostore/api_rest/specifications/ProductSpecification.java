@@ -13,7 +13,7 @@ public class ProductSpecification {
         );
 
         /*
-            WHERE (name LIKE '%keyword%' OR description LIKE '%keyword')
+            WHERE name LIKE '%keyword%' OR description LIKE '%keyword'
         */
 
         // Funciona como um where no sql, onde ele irá pesquisar '%{keyword}%' no banco tanto para a coluna 'name' quanto 'description'
