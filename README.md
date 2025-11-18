@@ -11,7 +11,7 @@ Este projeto fornece rotas REST para cadastro, listagem, atualização e exclus�
 - PostgreSQL
 - Maven
 - Lombok
-- Docker (opcional)
+- Flyway Migration
 
 ---
 
@@ -29,6 +29,10 @@ Este projeto fornece rotas REST para cadastro, listagem, atualização e exclus�
 - Listar produtos  
 - Buscar produto por ID  
 - Atualizar produto  
-- Excluir produto  
+- Excluir produto
+
+### Pedidos
+- Criar pedido
+- Listar Pedidos por Usuário
 
 ---
