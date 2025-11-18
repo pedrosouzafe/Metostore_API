@@ -1,4 +1,4 @@
-# 🛒 E-Commerce API — Spring Boot
+# 🛒 Metostore API — Spring Boot
 
 API desenvolvida em **Spring Boot** para gerenciamento de produtos e usuários em um sistema de e-commerce.  
 Este projeto fornece rotas REST para cadastro, listagem, atualização e exclusão de entidades, seguindo boas práticas de arquitetura e organização.
@@ -31,7 +31,7 @@ Este projeto fornece rotas REST para cadastro, listagem, atualização e exclus�
 - Atualizar produto  
 - Excluir produto
 
-### Pedidos
+### 🎁 Pedidos
 - Criar pedido
 - Listar Pedidos por Usuário
 
