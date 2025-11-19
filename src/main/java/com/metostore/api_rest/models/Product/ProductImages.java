@@ -21,7 +21,7 @@ public class ProductImages {
 
     private String altText;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)    // Não carrega o product de imediato, somente com o getProduct
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
 
